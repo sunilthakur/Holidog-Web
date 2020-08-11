@@ -1,0 +1,53 @@
+<div class="main-content-container container px-2 py-1">
+    <div class="row">
+        <div class="col">
+            <div class="card card-small mb-4">
+                <div class="card-header border-bottom">
+                    <h6 class="m-0">
+                        <span class="pull-left"> Books List</span>
+                        <span class="pull-right">
+                            <a class="btn btn-sm btn-primary text-white pull-right" routerLink="/add-books"
+                                routerLinkActive="active">Add Books</a>
+                        </span>
+                    </h6>
+                </div>
+                <div class="card-body p-0 pb-3 text-center table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead class="bg-info text-white">
+                            <tr>
+                                <th scope="col" class="border-0">#.</th>
+                                <th scope="col" class="border-0">Book Name</th>
+                                <th scope="col" class="border-0">ISBN</th>
+                                <th scope="col" class="border-0">Author</th>
+                                <th scope="col" class="border-0">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let book of booksList | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: pageNo, totalItems: total }">
+                                <td>{{book.bookId}}</td>
+                                <td>{{book.name}}</td>
+                                <td>{{book.isbn}}</td>
+                                <td>{{book.authorName}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-info text-white"
+                                        (click)="editBook(book.bookId)" title="Edit Book Details">
+                                        <i class="fa fa-pencil"></i> Edit
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger ml-1 text-white"
+                                        (click)="deleteBook(book.bookId)" title="Delete Hotel">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="has-text-centered text-right" [ngClass]="{ 'hidden': total<=10 }">
+                    <pagination-controls (pageChange)="getBooksPagedList($event)" id="server"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
